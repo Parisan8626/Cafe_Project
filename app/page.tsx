@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Popluar from "@/app/Components/HomePage/Popular";
+import ItemPage from "@/app/Components/HomePage/ItemPage";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -38,7 +39,7 @@ export default function Header() {
               </button>
               
               <div className="hidden md:flex space-x-8 space-x-reverse">
-                {["Home", "Manu", "Events ", "Contact"].map((item, index) => (
+                {["خانه", "رویدادها", "ارتباط با ما"].map((item, index) => (
                   <motion.a
                     key={item}
                     href="#"
@@ -60,7 +61,7 @@ export default function Header() {
               className="md:hidden overflow-hidden mt-4"
             >
               <div className="flex flex-col space-y-3 bg-black/50 rounded-lg p-4 backdrop-blur-sm">
-                {["Home", "Manu", "Events ", "Contact"].map((item) => (
+                {["خانه", "رویدادها", "ارتباط با ما"].map((item) => (
                   <a
                     key={item}
                     href="#"
@@ -88,6 +89,7 @@ export default function Header() {
         </div>
       </header>
        <Popluar/>
+       <ItemPage/>
     </div>
     
   );
