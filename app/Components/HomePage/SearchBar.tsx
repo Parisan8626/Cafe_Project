@@ -2,12 +2,46 @@
 
 import { useState } from "react";
 import { FiSearch } from "react-icons/fi";
+import { motion } from "framer-motion";
+import { FaUtensils, FaCoffee, FaBirthdayCake, FaIceCream } from "react-icons/fa";
 
-export default function ItemPage() {
+export default function SearchBar() {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
-  
+  const Iteam = [
+  { 
+    id: 1, 
+    name: "غذا", 
+    Icon : FaUtensils, 
+    url: "#food",
+   
+  },
+  { 
+    id: 2, 
+    name: "نوشیدنی‌ها", 
+    Icon: FaCoffee, 
+    url: "#drinks",
+    color: "from-amber-400 to-yellow-500",
+    bgColor: "bg-amber-50"
+  },
+  { 
+    id: 3, 
+    name: "کیک", 
+    Icon: FaBirthdayCake, 
+    url: "#cakes",
+    color: "from-pink-400 to-rose-500",
+    bgColor: "bg-pink-50"
+  },
+  { 
+    id: 4, 
+    name: "بستنی", 
+    Icon: FaIceCream, 
+    url: "#icecream",
+    color: "from-blue-400 to-cyan-500",
+    bgColor: "bg-blue-50"
+  }
+];
   const products = [
     { id: 1, name: "Cappuccino", category: "نوشیدنی گرم" },
     { id: 2, name: "Ice Cream Mix", category: "نوشیدنی سرد" },
@@ -41,8 +75,7 @@ export default function ItemPage() {
     
     }
   };
-
-  return (
+return (
     <div className="min-h-screen py-10">
       <div className="container mx-auto px-4 max-w-4xl">
         
@@ -101,6 +134,38 @@ export default function ItemPage() {
           </div>
         )}
       </div>
+             
+<div className="flex flex-cols-2 md:flex-cols-4 gap-10 max-w-4xl mx-auto px-4 m-30">
+  {Iteam.map((Iteam) => (
+    <motion.div
+      key={Iteam.id}
+      whileHover={{ 
+        scale: 1.05,
+        y: -8,
+        transition: { type: "spring", stiffness: 300 }
+      }}
+      whileTap={{ scale: 0.95 }}
+      className="group relative bg-amber-900 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 p-6 text-center cursor-pointer border-2 border-transparent hover:border-amber-50"
+    >
+     
+      
+      
+      <div className="relative z-10">
+        
+        <div className="w-20 h-20 mx-auto bg-white rounded-2xl flex items-center justify-center text-4xl shadow-md group-hover:shadow-xl group-hover:rotate-3 transition-all duration-300">
+          <span className="text-4xl text-black">{Iteam.Icon}</span>
+        </div>
+        
+      
+        <h3 className="mt-4 text-xl font-bold text-amber-600 group-hover:text-amber-500 transition-colors duration-300">
+          {Iteam.name}
+        </h3>
+       
+      </div>
+    </motion.div>
+  ))}
+</div>
+
     </div>
   );
 }
