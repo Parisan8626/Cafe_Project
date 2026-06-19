@@ -2,7 +2,10 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Popluar from "@/app/Components/HomePage/Popular";
-import ItemPage from "@/app/Components/HomePage/ItemPage";
+<<<<<<< HEAD
+=======
+import SearchBar from "@/app/Components/HomePage/SearchBar";
+>>>>>>> backup-branch
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -89,7 +92,12 @@ export default function Header() {
         </div>
       </header>
        <Popluar/>
-       <ItemPage/>
+<<<<<<< HEAD
+      
+=======
+       <SearchBar/>
+      
+>>>>>>> backup-branch
     </div>
     
   );
