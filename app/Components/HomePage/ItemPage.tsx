@@ -1,14 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useState, ChangeEvent, KeyboardEvent } from "react";
 import { FiSearch } from "react-icons/fi";
+
+type Product = {
+  id: number;
+  name: string;
+  category: string;
+};
 
 export default function ItemPage() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState<Product[]>([]);
 
-  
-  const products = [
+  const products: Product[] = [
     { id: 1, name: "Cappuccino", category: "نوشیدنی گرم" },
     { id: 2, name: "Ice Cream Mix", category: "نوشیدنی سرد" },
     { id: 3, name: "Sandwich", category: "غذا" },
@@ -17,38 +22,35 @@ export default function ItemPage() {
     { id: 6, name: "Mocha", category: "نوشیدنی گرم" },
   ];
 
-  
-  const handleSearch = (e) => {
+  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSearchTerm(value);
-    
+
     if (value.trim() === "") {
       setSearchResults([]);
     } else {
-      const results = products.filter((product) =>
-        product.name.toLowerCase().includes(value.toLowerCase()) ||
-        product.category.includes(value)
+      const results = products.filter(
+        (product) =>
+          product.name.toLowerCase().includes(value.toLowerCase()) ||
+          product.category.includes(value)
       );
+
       setSearchResults(results);
     }
   };
 
-  
-  const handleKeyDown = (e) => {
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       e.preventDefault();
       console.log("جستجو برای:", searchTerm);
-    
     }
   };
 
   return (
     <div className="min-h-screen py-10">
       <div className="container mx-auto px-4 max-w-4xl">
-        
-        <div className=" bg-white rounded-2xl shadow-lg p-2 flex items-center">
-          
-          <div className="text-white px-3">
+        <div className="bg-white rounded-2xl shadow-lg p-2 flex items-center">
+          <div className="text-gray-500 px-3">
             <FiSearch size={24} />
           </div>
 
@@ -59,7 +61,6 @@ export default function ItemPage() {
             onChange={handleSearch}
             onKeyDown={handleKeyDown}
             className="flex-1 py-3 px-2 text-gray-700 outline-none bg-transparent text-lg"
-            autoFocus
           />
 
           <button
@@ -69,7 +70,7 @@ export default function ItemPage() {
             جستجو
           </button>
         </div>
-        
+
         {searchResults.length > 0 && (
           <div className="mt-6 bg-white rounded-2xl shadow-lg overflow-hidden">
             <div className="p-4 border-b border-gray-100">
@@ -77,11 +78,18 @@ export default function ItemPage() {
                 {searchResults.length} نتیجه پیدا شد
               </span>
             </div>
+
             <ul className="divide-y divide-gray-100">
               {searchResults.map((product) => (
-                <li key={product.id} className="p-4 hover:bg-amber-50 transition-colors">
+                <li
+                  key={product.id}
+                  className="p-4 hover:bg-amber-50 transition-colors"
+                >
                   <div className="flex justify-between items-center">
-                    <span className="font-semibold text-gray-800">{product.name}</span>
+                    <span className="font-semibold text-gray-800">
+                      {product.name}
+                    </span>
+
                     <span className="text-sm text-black bg-gray-100 px-3 py-1 rounded-full">
                       {product.category}
                     </span>
@@ -92,11 +100,10 @@ export default function ItemPage() {
           </div>
         )}
 
-       
         {searchTerm && searchResults.length === 0 && (
           <div className="mt-6 text-center py-10 bg-white rounded-2xl shadow-lg">
             <p className="text-gray-400 text-lg">
-               محصولی با نام "{searchTerm}" پیدا نشد
+              محصولی با نام "{searchTerm}" پیدا نشد
             </p>
           </div>
         )}

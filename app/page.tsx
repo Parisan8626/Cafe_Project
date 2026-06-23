@@ -2,10 +2,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Popluar from "@/app/Components/HomePage/Popular";
-<<<<<<< HEAD
-=======
 import SearchBar from "@/app/Components/HomePage/SearchBar";
->>>>>>> backup-branch
+import Link from "next/link";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -28,6 +26,7 @@ export default function Header() {
                 Cafe San
               </motion.div>
               
+              
               <button 
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className="md:hidden text-white focus:outline-none"
@@ -40,6 +39,7 @@ export default function Header() {
                   )}
                 </svg>
               </button>
+              
               
               <div className="hidden md:flex space-x-8 space-x-reverse">
                 {["خانه", "رویدادها", "ارتباط با ما"].map((item, index) => (
@@ -55,6 +55,9 @@ export default function Header() {
                   </motion.a>
                 ))}
               </div>
+              <Link
+        href="/payshop"
+        className="bg-amber-700 hover:bg-amber-900 text-white px-6 py-3 rounded-xl"> سبد خرید        </Link>
             </div>
             
            
@@ -80,6 +83,7 @@ export default function Header() {
         </div>
         
         
+        
         <div className="relative z-10 container mx-auto px-4 h-full flex items-center">
           <motion.h1 
             initial={{ x: -100, opacity: 0 }}
@@ -92,12 +96,8 @@ export default function Header() {
         </div>
       </header>
        <Popluar/>
-<<<<<<< HEAD
-      
-=======
        <SearchBar/>
-      
->>>>>>> backup-branch
+    
     </div>
     
   );
