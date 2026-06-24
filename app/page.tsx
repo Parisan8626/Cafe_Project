@@ -1,23 +1,30 @@
+
 "use client";
+
 import { useState } from "react";
 import { motion } from "framer-motion";
-import Popluar from "@/app/Components/HomePage/Popular";
+import Popular from "@/app/Components/HomePage/Popular";
 import SearchBar from "@/app/Components/HomePage/SearchBar";
 import Link from "next/link";
+import { useCart } from "@/app/context/CartContext";
 
-export default function Header() {
+export default function HomePage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { totalItems } = useCart(); 
 
   return (
-    <div className="bg-cyan-950">
-      <header 
+    <div className="bg-cyan-900">
+      <header
         className="h-screen bg-cover bg-center bg-no-repeat relative"
-        style={{ backgroundImage: "url('pic/Screenshot_20260611_153344_Chrome.jpg')" }}
+        style={{
+          backgroundImage: "url('/pic/Screenshot_20260611_153344_Chrome.jpg')",
+        }}
       >
-        <div className="flex z-20">
+        
+        <div className="relative z-20">
           <div className="container mx-auto px-4 py-4">
             <div className="flex justify-between items-center">
-              
+             
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -25,23 +32,38 @@ export default function Header() {
               >
                 Cafe San
               </motion.div>
+
               
-              
-              <button 
+              <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className="md:hidden text-white focus:outline-none"
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   {isMenuOpen ? (
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
                   ) : (
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 6h16M4 12h16M4 18h16"
+                    />
                   )}
                 </svg>
               </button>
-              
-              
-              <div className="hidden md:flex space-x-8 space-x-reverse">
+
+             
+              <div className="hidden md:flex items-center space-x-8 space-x-reverse">
                 {["خانه", "رویدادها", "ارتباط با ما"].map((item, index) => (
                   <motion.a
                     key={item}
@@ -54,18 +76,31 @@ export default function Header() {
                     {item}
                   </motion.a>
                 ))}
+
+                
+                <Link
+                  href="/payshop"
+                  className="relative bg-amber-700 hover:bg-amber-900 text-white px-6 py-3 rounded-xl transition-all duration-300 flex items-center gap-2"
+                >
+                   سبد خرید
+                  {totalItems > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center font-bold">
+                      {totalItems}
+                    </span>
+                  )}
+                </Link>
               </div>
-              <Link
-        href="/payshop"
-        className="bg-amber-700 hover:bg-amber-900 text-white px-6 py-3 rounded-xl"> سبد خرید        </Link>
             </div>
+
             
-           
-            <motion.div 
+            <motion.div
               initial={false}
-              animate={{ height: isMenuOpen ? "auto" : 0, opacity: isMenuOpen ? 1 : 0 }}
+              animate={{
+                height: isMenuOpen ? "auto" : 0,
+                opacity: isMenuOpen ? 1 : 0,
+              }}
               className="md:hidden overflow-hidden mt-4"
-            >
+              >
               <div className="flex flex-col space-y-3 bg-black/50 rounded-lg p-4 backdrop-blur-sm">
                 {["خانه", "رویدادها", "ارتباط با ما"].map((item) => (
                   <a
@@ -77,28 +112,44 @@ export default function Header() {
                     {item}
                   </a>
                 ))}
+
+               
+                <Link
+                  href="/payshop"
+                  className="bg-amber-700 hover:bg-amber-900 text-white px-6 py-3 rounded-xl text-center transition-all duration-300 flex items-center justify-center gap-2"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                   سبد خرید
+                  {totalItems > 0 && (
+                    <span className="bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                      {totalItems}
+                    </span>
+                  )}
+                </Link>
               </div>
             </motion.div>
           </div>
         </div>
-        
-        
+
         
         <div className="relative z-10 container mx-auto px-4 h-full flex items-center">
-          <motion.h1 
+          <motion.h1
             initial={{ x: -100, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-white text-6xl md:text-6xl font-bold p-6 md:p-20"
+            className="text-white text-4xl md:text-6xl font-bold p-6 md:p-20"
           >
-           طعم واقعی قهوه و<br/> دسر های جادویی را <br/>در کافه ما تجربه کنید
+            طعم واقعی قهوه و
+            <br /> دسر های جادویی را
+            <br />
+            در کافه ما تجربه کنید
           </motion.h1>
         </div>
       </header>
-       <Popluar/>
-       <SearchBar/>
-    
+
+      
+      <Popular />
+      <SearchBar />
     </div>
-    
   );
 }
