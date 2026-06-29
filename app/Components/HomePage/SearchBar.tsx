@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, ChangeEvent, KeyboardEvent } from "react";
-import { FiSearch } from "react-icons/fi";
 import { motion } from "framer-motion";
 import {
   FaUtensils,
@@ -11,7 +10,7 @@ import {
 } from "react-icons/fa";
 import { useCart } from "@/app/context/CartContext";
 import { IconType } from "react-icons";
-import Link from "next/link"; 
+import Link from "next/link";
 
 
 type Product = {
@@ -39,7 +38,7 @@ export default function SearchBar() {
   const Iteam: MenuItem[] = [
     { id: 1, name: "غذا", Icon: FaUtensils, url: "#food" },
     { id: 2, name: "نوشیدنی‌ها", Icon: FaCoffee, url: "#drinks" },
-    { id: 3, name: "کیک", Icon: FaBirthdayCake, url: "#cakes" },
+    { id: 3, name: "کیک", Icon: FaBirthdayCake, url: "/Cake" },
     { id: 4, name: "بستنی", Icon: FaIceCream, url: "#icecream" },
   ];
 
@@ -88,27 +87,12 @@ export default function SearchBar() {
         
         
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-2xl md:text-3xl font-bold text-amber-800">
+          <h1 className="text-2xl md:text-3xl font-bold text-white">
             محصولات کافه ما
           </h1>
-          
-          
-          <Link href="/payshop" className="relative">
-            <span className="text-3xl">سفارش </span>
-            {totalItems > 0 && (
-              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center font-bold">
-                {totalItems}
-              </span>
-            )}
-          </Link>
         </div>
-
         
         <div className="bg-white rounded-2xl shadow-lg p-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
-          <div className="flex items-center justify-center text-gray-500 px-3">
-            <FiSearch size={22} />
-          </div>
-
           <input
             type="text"
             placeholder="دنبال چی میگردی؟..."
@@ -179,55 +163,25 @@ export default function SearchBar() {
           </div>
         )}
 
-        
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-10 max-w-4xl mx-auto px-2 md:px-4 mt-10 md:mt-30">
-          {Iteam.map((item) => (
-            <motion.div
-              key={item.id}
-              whileHover={{ scale: 1.05, y: -6 }}
-              whileTap={{ scale: 0.95 }}
-              className="group bg-amber-900 rounded-2xl md:rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 p-4 md:p-6 text-center cursor-pointer"
-            >
-              <div className="w-14 h-14 md:w-20 md:h-20 mx-auto bg-white rounded-2xl flex items-center justify-center shadow-md">
-                <item.Icon className="text-2xl md:text-4xl text-black" />
-              </div>
-
-              <h3 className="mt-3 md:mt-4 text-base md:text-xl font-bold text-amber-600">
-                {item.name}
-              </h3>
-            </motion.div>
-          ))}
+<div className="grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-10 max-w-4xl mx-auto px-2 md:px-4 mt-10">
+  {Iteam.map((item) => (
+    <Link key={item.id} href={item.url}>
+      <motion.div
+        whileHover={{ scale: 1.05, y: -6 }}
+        whileTap={{ scale: 0.95 }}
+        className="group bg-amber-900 rounded-2xl md:rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 p-4 md:p-6 text-center cursor-pointer"
+      >
+        <div className="w-14 h-14 md:w-20 md:h-20 mx-auto bg-white rounded-2xl flex items-center justify-center shadow-md">
+          <item.Icon className="text-2xl md:text-4xl text-black" />
         </div>
 
-        
-        <div className="mt-16">
-          <h2 className="text-2xl font-bold text-amber-800 mb-6 text-center">
-             منوی ما
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {products.map((product) => (
-              <div
-                key={product.id} className="bg-white rounded-2xl shadow-lg p-4 hover:shadow-xl transition"
-              >
-                <div className="flex justify-between items-start">
-                  <div>
-                    <h3 className="font-bold text-lg">{product.name}</h3>
-                    <p className="text-sm text-gray-500">{product.category}</p>
-                    <p className="text-amber-600 font-semibold mt-1">
-                      {product.price.toLocaleString()} تومان
-                    </p>
-                  </div>
-                  <button
-                    onClick={() => handleAddToCart(product)}
-                    className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg text-sm transition"
-                  >
-                     سفارش
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        <h3 className="mt-3 md:mt-4 text-base md:text-xl font-bold text-amber-600">
+          {item.name}
+        </h3>
+      </motion.div>
+    </Link>
+  ))}
+</div>
       </div>
     </div>
   );
