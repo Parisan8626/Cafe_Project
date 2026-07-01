@@ -36,10 +36,10 @@ export default function SearchBar() {
 
   
   const Iteam: MenuItem[] = [
-    { id: 1, name: "غذا", Icon: FaUtensils, url: "#food" },
-    { id: 2, name: "نوشیدنی‌ها", Icon: FaCoffee, url: "#drinks" },
+    { id: 1, name: "غذا", Icon: FaUtensils, url: "/Food" },
+    { id: 2, name: "نوشیدنی‌ها", Icon: FaCoffee, url: "/Drink" },
     { id: 3, name: "کیک", Icon: FaBirthdayCake, url: "/Cake" },
-    { id: 4, name: "بستنی", Icon: FaIceCream, url: "#icecream" },
+    { id: 4, name: "بستنی", Icon: FaIceCream, url: "/Ice" },
   ];
 
   const products: Product[] = [
